@@ -1,0 +1,23 @@
+syntax = "proto3";
+
+package numberPackage;
+
+service NumberService {
+  rpc AddNumber (NumberRequest) returns (NumberResponse);
+  rpc GetNumbers (Empty) returns (NumberList);
+}
+
+message NumberRequest {
+  int32 number = 1;
+}
+
+message NumberResponse {
+  bool success = 1;
+  int32 stored = 2;
+}
+
+message Empty {}
+
+message NumberList {
+  repeated int32 numbers = 1;
+}
