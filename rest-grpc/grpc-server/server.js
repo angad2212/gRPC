@@ -23,9 +23,9 @@ server.addService(numberPackage.NumberService.service, {
 
 //now starting the server
 server.bindAsync(
-  '0.0.0.0:50051',
-  grpc.ServerCredentials.createInsecure(),
-  (err, port) => {
+  '0.0.0.0:50051', // 1
+  grpc.ServerCredentials.createInsecure(), // 2
+  (err, port) => { // 3
     if (err) {
       console.error(err);
       return;
