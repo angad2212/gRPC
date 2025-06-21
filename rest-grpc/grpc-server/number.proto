@@ -1,16 +1,19 @@
 syntax = "proto3";
 
-package numberPackage;
+package numberPackage; //the main service name, groups all services under here
 
+//two endpoints, with defines req and res
 service NumberService {
   rpc AddNumber (NumberRequest) returns (NumberResponse);
   rpc GetNumbers (Empty) returns (NumberList);
 }
 
+//req.body
 message NumberRequest {
   int32 number = 1;
 }
 
+//res -> what i send back
 message NumberResponse {
   bool success = 1;
   int32 stored = 2;
@@ -18,6 +21,7 @@ message NumberResponse {
 
 message Empty {}
 
+//res -> what i send back for second API
 message NumberList {
   repeated int32 numbers = 1;
 }

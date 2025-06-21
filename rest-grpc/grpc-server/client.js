@@ -12,8 +12,17 @@ const client = new numberPackage.NumberService(
   grpc.credentials.createInsecure()
 );
 
+// ✅ Get the number from command line
+const input = process.argv[2];
+const number = parseInt(input);
+
+if (isNaN(number)) {
+  console.error('⚠️  Please pass a valid number as an argument!');
+  process.exit(1);
+}
+
 // 1️⃣ Call AddNumber
-client.AddNumber({ number: 42 }, (err, response) => {
+client.AddNumber({ number }, (err, response) => {
   if (err) {
     console.error("❌ Error adding number:", err);
     return;

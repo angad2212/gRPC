@@ -15,5 +15,5 @@ app.get('/numbers', (req, res) => {
 });
 
 app.listen(3000, () => {
-  console.log('🚀 REST server listening on http://localhost:3000');
+  console.log('REST server listening on http://localhost:3000');
 });
