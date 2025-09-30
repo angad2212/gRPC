@@ -5,7 +5,7 @@ const protoLoader = require('@grpc/proto-loader');
 const packageDef = protoLoader.loadSync('number.proto');
 const grpcObject = grpc.loadPackageDefinition(packageDef);
 const numberPackage = grpcObject.numberPackage; //has access to all services in proto file
-
+ 
 const numbers = []; //temp database
 const server = new grpc.Server(); //now, create a grpc server to hit the service
 
