@@ -1,6 +1,5 @@
 const http = require('http');
 const express = require('express');
-const { Server } = require('socket.io');
 const { WebSocketServer } = require('ws');
 
 // In-memory store: id -> { id, name, email }
@@ -21,7 +20,7 @@ app.get('/users', (req, res) => {
   res.status(200).json(Array.from(users.values()));
 });
 
-// Create user and broadcast over Socket.IO
+// Create user and broadcast to WebSocket clients
 app.post('/users', (req, res) => {
   const { name, email } = req.body || {};
   if (!name || !email) {
@@ -31,34 +30,15 @@ app.post('/users', (req, res) => {
   const user = { id, name, email };
   users.set(id, user);
 
-  // Broadcast to all connected Socket.IO clients
-  io.emit('user.created', user);
-  // Broadcast to raw WebSocket clients (Postman)
+  // Broadcast to all connected raw WebSocket clients
   broadcastWs({ type: 'user.created', user });
 
   return res.status(201).json(user);
 });
 
-// Create HTTP server and attach WebSocket server to it (same port)
+// Create HTTP server and attach raw WebSocket server to it (same port)
 const PORT = 4001;
 const server = http.createServer(app);
-
-const io = new Server(server, {
-  cors: {
-    origin: '*'
-  }
-});
-
-io.on('connection', (socket) => {
-  // Greet the client and share current users
-  socket.emit('welcome', { message: 'Socket.IO connected' });
-  socket.emit('snapshot', { users: Array.from(users.values()) });
-
-  // Optional echo for client messages
-  socket.on('echo', (data) => {
-    socket.emit('echo', data);
-  });
-});
 
 // Raw WebSocket endpoint for Postman: ws://localhost:4001/ws
 const wss = new WebSocketServer({ noServer: true });
@@ -88,8 +68,7 @@ wss.on('connection', (ws) => {
 server.listen(PORT, () => {
   console.log(`WS + HTTP server listening on http://localhost:${PORT}`);
   console.log(`- HTTP endpoints: GET/POST http://localhost:${PORT}/users`);
-  console.log(`- Socket.IO URL: ws://localhost:${PORT}`);
-  console.log(`- Raw WS URL (Postman): ws://localhost:${PORT}/ws`);
+  console.log(`- WS URL: ws://localhost:${PORT}/ws`);
 });
 
 
