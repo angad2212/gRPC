@@ -1,7 +1,7 @@
 const grpc = require('@grpc/grpc-js');
 const protoLoader = require('@grpc/proto-loader');
 
-//load the proto file, and generate the grpc service
+//load the proto file, and generate the grpc service 
 const packageDef = protoLoader.loadSync('number.proto');
 const grpcObject = grpc.loadPackageDefinition(packageDef);
 const numberPackage = grpcObject.numberPackage; //has access to all services in proto file
