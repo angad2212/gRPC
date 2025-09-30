@@ -1,9 +1,9 @@
-syntax = "proto3"
+syntax = "proto3";
 
-package user //groups all under one file
+package user; // groups all under one file
 
-service userService { //this is like your API contract, all three api's defined
-    rpc CreateUser (CreateUserRequest) returns (CreateuserResponse);
+service UserService { // this is like your API contract, all three APIs defined
+    rpc CreateUser (CreateUserRequest) returns (CreateUserResponse);
     rpc GetUser (GetUserRequest) returns (GetUserResponse);
     rpc ListUsers (ListUsersRequest) returns (ListUsersResponse);
 }

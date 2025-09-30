@@ -9,6 +9,12 @@ let nextId = 1; // auto-id starting at 1
 
 app.post('/users', (req, res)=>{
     const { user, email } = req.body;
+    if (!user || !email) {
+        return res({
+          code: grpc.status.INVALID_ARGUMENT,
+          message: 'name and email are required'
+        });
+    }
     const id = nextId++;
     users.set(id, { user, email });
 
