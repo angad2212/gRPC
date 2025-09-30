@@ -1,7 +1,5 @@
-//importing necessary packages for grpc to work
 const grpc = require('@grpc/grpc-js');
 const protoLoader = require('@grpc/proto-loader');
-const express = require('express');
 
 //load the proto file, and generate the grpc service
 const packageDef = protoLoader.loadSync('number.proto');
