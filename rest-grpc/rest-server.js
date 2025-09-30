@@ -1,8 +1,9 @@
 const express = require('express');
-const app = express();
-app.use(express.json());
 
-const numbers = [];
+const app = express(); //our rest server
+app.use(express.json()); 
+
+const numbers = []; //temp database 
 
 app.post('/number', (req, res) => {
   const num = req.body.number;

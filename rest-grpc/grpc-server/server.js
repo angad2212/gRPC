@@ -1,13 +1,14 @@
 //importing necessary packages for grpc to work
 const grpc = require('@grpc/grpc-js');
 const protoLoader = require('@grpc/proto-loader');
+const express = require('express');
 
 //load the proto file, and generate the grpc service
 const packageDef = protoLoader.loadSync('number.proto');
 const grpcObject = grpc.loadPackageDefinition(packageDef);
 const numberPackage = grpcObject.numberPackage; //has access to all services in proto file
 
-const numbers = [];
+const numbers = []; //temp database
 const server = new grpc.Server(); //now, create a grpc server to hit the service
 
 server.addService(numberPackage.NumberService.service, {
@@ -23,7 +24,7 @@ server.addService(numberPackage.NumberService.service, {
 
 //now starting the server
 server.bindAsync(
-  '0.0.0.0:50051', // 1
+  '0.0.0.0:50052', // 1
   grpc.ServerCredentials.createInsecure(), // 2
   (err, port) => { // 3
     if (err) {

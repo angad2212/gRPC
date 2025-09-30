@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package numberPackage; //the main service name, groups all services under here
 
-//two endpoints, with defines req and res
+//two endpoints, with defined req and res
 service NumberService {
   rpc AddNumber (NumberRequest) returns (NumberResponse);
   rpc GetNumbers (Empty) returns (NumberList);
@@ -10,7 +10,7 @@ service NumberService {
 
 //req.body
 message NumberRequest {
-  int32 number = 1;
+  int32 number = 1; //hee 1 = field tags
 }
 
 //res -> what i send back
