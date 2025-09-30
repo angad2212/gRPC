@@ -15,7 +15,7 @@ This repository is a practical exploration of **service-to-service communication
 - **Transport**: REST runs over **HTTP/1.1** with text-based requests/responses, while gRPC is built on **HTTP/2**, enabling multiplexed streams, lower latency, and built-in support for bidirectional streaming.  
 - **Use Case Fit**: REST is simple, widely supported, and great for external/public APIs. gRPC shines in **internal microservice communication**, where speed and efficiency matter most.  
 
-📊 **Performance Note**:  
+**Performance Note**:  
 In a basic test with identical requests:  
 - **REST** averaged **~24 ms**  
 - **gRPC** averaged **~12 ms**  
