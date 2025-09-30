@@ -104,12 +104,3 @@ The aim: **understand their trade-offs**, not just use them blindly.
 - **If internal microservices → gRPC**.  
 - **If UI/frontend with varied data needs → GraphQL**.  
 
----
-
-## Next Steps in This Repo  
-
-- Minimal implementations of each:  
-  - `rest/` → Express.js REST API  
-  - `grpc/` → Node.js gRPC service  
-  - `graphql/` → Apollo GraphQL server  
-- Benchmarks and comparisons (latency, payload size, dev experience).  
