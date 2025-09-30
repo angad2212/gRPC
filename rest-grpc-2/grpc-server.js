@@ -16,30 +16,32 @@ const userProto = grpc.loadPackageDefinition(packageDefinition).user;
 const users = new Map(); // Map<number, { id: number, name: string, email: string }>
 let nextId = 1; // auto-id starting at 1
 
-function CreateUser(call, callback) {
-    const { name, email } = call.request;
+function CreateUser(req, res) {
+    const { name, email } = req.request;  // req = call
     if (!name || !email) {
-      return callback({
+        return res({
         code: grpc.status.INVALID_ARGUMENT,
         message: 'name and email are required'
-      });
+        });
     }
     const id = nextId++;
     const user = { id, name, email };
     users.set(id, user);
-    callback(null, { user });
-  }
 
-function GetUser(call, callback) {
-  const { id } = call.request;
-  const user = users.get(id);
-  if (!user) {
-    return callback({
-      code: grpc.status.NOT_FOUND,
-      message: `User ${id} not found`
-    });
-  }
-  callback(null, { user });
+    return res(null, { user });  // res = callback
+}
+  
+
+function GetUser(req, res) {
+    const { id } = req.request;   // instead of call.request
+    const user = users.get(id);
+    if (!user) {
+        return res({
+        code: grpc.status.NOT_FOUND,
+        message: `User ${id} not found`
+        });
+    }
+    return res(null, { user });
 }
 
 function ListUsers(call, callback) {
